@@ -1,0 +1,23 @@
+body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background-color: #f8fafc;
+}
+.thread-line {
+    position: absolute;
+    left: 28px;
+    top: 60px;
+    bottom: -20px;
+    width: 2px;
+    background-color: #cbd5e1;
+    z-index: 0;
+}
+.card-item:last-child .thread-line {
+    display: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+.no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
