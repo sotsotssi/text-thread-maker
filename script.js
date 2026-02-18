@@ -146,7 +146,7 @@ function rendertwees(twees) {
                         <button class="hover:text-indigo-500 transition"><i class="fa-regular fa-comment-dots"></i></button>
                         <button class="hover:text-emerald-500 transition"><i class="fa-solid fa-share-nodes"></i></button>
                         <button class="hover:text-pink-500 transition"><i class="fa-regular fa-bookmark"></i></button>
-                        <button class="hover:text-indigo-500 transition ml-auto" onclick="copySingletwee('${escapeHtml(text)}')"><i class="fa-regular fa-copy"></i></button>
+                        <button class="hover:text-indigo-500 transition ml-auto" onclick="copySingletwee(${index})"><i class="fa-regular fa-copy"></i></button>
                     </div>
                 </div>
             </div>
@@ -258,10 +258,16 @@ function copyAlltwees() {
         showToast("복사할 내용이 없습니다.");
         return;
     }
+    const includeCounter = document.getElementById('include-counter-checkbox').checked;
 
     let allText = "";
+            
     generatedtwees.forEach((text, idx) => {
-        allText += `[${idx+1}/${generatedtwees.length}] ${text}\n\n`;
+        if (includeCounter) {
+            allText += `[${idx+1}/${generatedtwees.length}] ${text}\n\n`;
+        } else {
+            allText += `${text}\n\n`;
+        }
     });
 
     navigator.clipboard.writeText(allText).then(() => {
@@ -269,7 +275,10 @@ function copyAlltwees() {
     });
 }
 
-function copySingletwee(text) {
+function copySingletwee(index) {
+    const text = generatedtwees[index];
+    if (!text) return;
+            
     navigator.clipboard.writeText(text).then(() => {
         showToast("글타래 내용이 복사되었습니다.");
     });
